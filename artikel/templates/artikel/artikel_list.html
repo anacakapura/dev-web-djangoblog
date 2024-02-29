@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content-1 %}
+<div class="row" style="height: 200px" >
+    <h1 style="margin-bottom: 30px;">PAGE ARTIKEL LIST</h1>
+
+    <div class="row">
+        <div class="col-md-8">
+            {% for artikel in artikel_list %} <!-- artikel_list is result from : views.py > ArtikelListView > context_object_name -->
+            <div style="margin-bottom: 20px;">
+                <h5><a class="text-dark" href="{% url 'artikel:artikel_detail' artikel.slug %}" style="text-decoration: none;">{{artikel.title}}</a></h5>
+                <p style="text-align: justify;">{{artikel.body | truncatewords:50}} 
+                    <a href="{% url 'artikel:artikel_detail' artikel.slug %}" style="text-decoration: none;">detail</a></p>
+                <p>Kategori : {{artikel.kategori}} - {{artikel.published}}</p> 
+            </div>
+            {% endfor %}
+
+            {% if is_paginated %}
+            <nav aria-label="artikelPage">
+                <ul class="pagination">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="{% url 'artikel:artikel_kategori' kategori page_obj.previous_page_number %}">Previous</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link">Previous</a>
+                    </li>
+                    {% endif %}
+                    
+                    
+                    {% for page in paginator.page_range %}
+                        {% if page is page_obj.number %}
+                        <li class="page-item active" aria-current="page">
+                            <span class="page-link" href="#">{{page}}</span>
+                        </li>    
+                        {% else %}
+                        <li class="page-item">
+                            <a class="page-link" href="{% url 'artikel:artikel_kategori' kategori page %}">{{page}}</a>
+                        </li>
+                        {% endif %}
+                    {% endfor %}
+
+                    
+                    {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="{% url 'artikel:artikel_kategori' kategori page_obj.next_page_number %}">Next</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link">Next</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% endif %}
+        </div>
+
+        <div class="col-sm" style="margin-left: 10px;">
+            <h5>Kategori</h5>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <a class="text-dark" href="{% url 'artikel:artikel_list' 'kategori' %}" style="text-decoration: none;">Semua Artikel</a></li>    
+                {% for kategori in kategori_list %} <!-- kategori_list is result from : views.py > ArtikelListView > get_context_data -->
+                <li class="list-group-item">
+                    <a class="text-dark" href="{% url 'artikel:artikel_list' kategori %}" style="text-decoration: none;">{{kategori}}</a></li>    
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+        
+</div>
+{% endblock content-1 %}

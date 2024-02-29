@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+
+{% block content-1 %}
+<div class="row" style="height: 400px">
+    <h1 style="margin-bottom: 30px;">PAGE UPDATE</h1>
+
+    <form action="" method="post">
+        {% csrf_token %}
+
+        
+        {% for form in form %}
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">{{form.label}}</label>
+            {{form}}
+        </div>
+        {% endfor %}
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+{% endblock content-1 %}
+    

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content-1 %}
+<div class="row" style="height: 200px" >
+    <h1 style="margin-bottom: 30px;">PAGE ARTIKEL DETAIL</h1>
+
+    <div class="row">
+        <div class="col-md-8">
+            <!-- artikel_detail is result from : views.py > ArtikelDetailView > context_object_name -->
+            <h5>{{artikel_detail.title}}</h5>
+            <p style="text-align: justify;">{{artikel_detail.body}}</p>
+            <p>Kategori : {{artikel_detail.kategori}} - {{artikel_detail.published}}</p> 
+        </div>
+
+        <div class="col-sm" style="margin-left: 10px;">
+            <h6>Kategori</h6>
+            <ul class="list-group list-group-flush">
+                {% for kategori in kategori_list %} <!-- kategori_list is result from : views.py > ArtikelListView > get_context_data -->
+                <li class="list-group-item">
+                    <a class="text-dark" href="{% url 'artikel:artikel_list' kategori %}" style="text-decoration: none;">{{kategori}}</a></li>    
+                {% endfor %}
+                <li class="list-group-item">
+                    <a class="text-dark" href="{% url 'artikel:artikel_list' 'kategori' %}" style="text-decoration: none;">Semua Artikel</a></li>    
+            </ul>
+            
+            <br>
+            <h6>Artikel Serupa</h6>
+            <ul class="list-group list-group-flush">
+                {% for artikel in artikel_serupa %} <!-- kategori_list is result from : views.py > ArtikelListView > get_context_data -->
+                    {% if forloop.counter is not 3 %}
+                    <li class="list-group-item">
+                        <a class="text-dark" href="{% url 'artikel:artikel_detail' artikel.slug %}" style="text-decoration: none;">{{artikel.title}}</a>
+                    </li>
+                    {% endif %}
+                {% endfor %}
+                <li class="list-group-item">
+                    <a class="text-dark" href="{% url 'artikel:artikel_list' artikel_detail.kategori %}" style="text-decoration: none;">Selengkapnya</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+        
+</div>
+{% endblock content-1 %}

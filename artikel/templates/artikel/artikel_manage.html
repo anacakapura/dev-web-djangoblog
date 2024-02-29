@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+
+{% block content-1 %}
+<div class="row" style="height: 50px">
+    <h1>PAGE MANAGE</h1>
+</div>
+
+<table class="table table-striped">
+    <thead class="table">
+        <tr>
+            <th scope="col">No</th>
+            <th scope="col">Judul Artikel</th>
+            <th scope="col">Kategori</th>
+            <th scope="col">Published</th>
+            <th scope="col">Edit Data</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        {% for artikel in artikel_list %}
+        <tr>
+            <th scope="row" style="vertical-align: middle; font-weight: normal;">{{forloop.counter}}</th>
+            <td style="vertical-align: middle;">{{artikel.title}}</td>
+            <td style="vertical-align: middle;">{{artikel.kategori}}</td>
+            <td style="white-space: nowrap; vertical-align: middle;">{{artikel.published | date:'d-m-Y'}}</td>
+            <td style="white-space: nowrap;">
+                <a class="btn btn-warning" href="{% url 'artikel:artikel_update' artikel.id %}">Update</a>
+                <a class="btn btn-danger" href="{% url 'artikel:artikel_delete' artikel.id %}">Delete</a>
+            </td>
+        </tr> 
+        {% endfor %}
+            
+    </tbody>
+</table>
+<a class="btn btn-primary" href="{% url 'artikel:artikel_create' %}">Tambah</a>
+{% endblock content-1 %}
+    

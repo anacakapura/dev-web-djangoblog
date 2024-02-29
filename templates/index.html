@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content-1 %}
+<div class="row" style="height: 400px">
+    <h1 style="margin-bottom: 30px;">PAGE HOME</h1>
+
+    
+    {% for artikel in latest_artikel_list %}
+    <div class="card" style="width: 18rem; margin: 10px;">
+        <img src="{% static 'img/images.png' %}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">
+                <a class="text-dark" href="{% url 'artikel:artikel_list' artikel.kategori %}" style="text-decoration: none;">{{artikel.kategori}}</a></h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">{{artikel.title}}</h6>
+            <p class="card-text">{{artikel.body | truncatewords:10}}</p>
+            <a href="{% url 'artikel:artikel_detail' artikel.slug %}" class="btn btn-primary">Selengkapnya</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content-1 %}
+    

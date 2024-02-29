@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+
+{% block content-1 %}
+<div class="row" style="height: 200px">
+    <h1>PAGE DELETE CONFIRMATION</h1>
+
+    <p>Hapus artikel berikut:</p>
+    <p>{{artikel.title}}</p>  <!-- #Result from views.py > class ArtikelDeleteView > model = Artikel  -->
+    <form action="" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-outline-primary">Ya</button>
+        <a class="btn btn-outline-danger" href="{% url 'artikel:artikel_manage' %}">Tidak</a>
+    </form>
+</div>
+{% endblock content-1 %}
+    

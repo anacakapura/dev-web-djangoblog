@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{judul}}</title>
+    
+    {% include 'snippets/styles.html' %} <!-- File : templates/snippets/styles.hyml -->
+
+    {% block app_css %}
+    <!-- <link rel="stylesheet" href="{% static 'css/styles.css' %}"> -->
+    {% endblock app_css %}
+        
+</head>
+<body>
+    {% include 'snippets/navbar.html' %} <!-- File : templates/snippets/navbar.hyml -->  
+
+    <div class="container-fluid">
+        <div class="container" style="margin-top: 100px">
+            {% block content-1 %}
+                
+            {% endblock content-1 %}
+        </div>
+    </div>
+
+    {% include 'snippets/scripts.html' %}
+</body>
+</html>
